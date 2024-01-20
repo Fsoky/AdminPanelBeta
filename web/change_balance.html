@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{{ url_for('static', path='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+    <div class="icon">
+        <i class="fas fa-home" style="font-size: 30px;"></i>
+    </div>
+
+    <div class="container">
+        <h1>Change Balance</h1>
+        <div class="box">
+            <input type="number" id="amount" required="required">
+            <span>Сумма</span>
+        </div>
+        <button class="button-9" role="button" onclick="changeBalance()">ПРИМЕНИТЬ</button>
+    </div>
+
+    <div class="snackbar"></div>
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="{{ url_for('static', path='script.js') }}"></script>
+</body>
+</html>

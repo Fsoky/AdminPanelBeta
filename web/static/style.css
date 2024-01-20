@@ -1,0 +1,136 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "JetBrains Mono", monospace;
+    color: #fff;
+}
+
+body {
+    background: #131020;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.container {
+    text-align: center;
+}
+
+.container h1, .container button {
+    margin-bottom: 20px; /* Добавляем отступ между элементами в столбике */
+}
+
+.button-9 {
+  appearance: button;
+  backface-visibility: hidden;
+  background-color: #405cf5;
+  border-radius: 6px;
+  border-width: 0;
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset,rgba(50, 50, 93, .1) 0 2px 5px 0,rgba(0, 0, 0, .07) 0 1px 1px 0;
+  box-sizing: border-box;
+  color: #fff;
+  cursor: pointer;
+  font-size: 100%;
+  height: 44px;
+  line-height: 1.15;
+  margin: 12px 0 0;
+  outline: none;
+  overflow: hidden;
+  padding: 0 25px;
+  position: relative;
+  text-align: center;
+  text-transform: none;
+  transform: translateZ(0);
+  transition: all .2s,box-shadow .08s ease-in;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  width: 100%;
+}
+
+.button-9:disabled {
+  cursor: default;
+  opacity: 50%;
+}
+
+.button-9:focus {
+  box-shadow: rgba(50, 50, 93, .1) 0 0 0 1px inset, rgba(50, 50, 93, .2) 0 6px 15px 0, rgba(0, 0, 0, .1) 0 2px 2px 0, rgba(50, 151, 211, .3) 0 0 0 4px;
+}
+
+.box {
+    position: relative;
+    max-width: 500px;
+    width: 100%;
+}
+
+.box input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #9c2838;
+    border-radius: 5px;
+    background: #0d0f17;
+    outline: none;
+    color: #ffffff;
+    font-size: 1em;
+    transition: 0.5s;
+}
+
+.box span {
+    position: absolute;
+    left: 0;
+    padding: 10px;
+    pointer-events: none;
+    font-size: 1em;
+    color: rgba(255, 255, 255, 0,25);
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.box input:focus ~ span,
+.box input:valid ~ span {
+    color: #e82741;
+    transform: translateX(10px) translateY(-7px);
+    font-size: 0.65em;
+    padding: 0 10px;
+    background: #0d0f17;
+    border-left: 1px solid #e82741;
+    border-right: 1px solid #e82741;
+    letter-spacing: 0.2em;
+    background: #e82741;
+    color: #0d0f17;
+    border-radius: 2px;
+}
+
+.box input:focus,
+.box input:valid {
+    border: 1px solid #e82741;
+}
+
+.snackbar {
+    max-width: 300px;
+    background: #292344;
+    padding: 10px;
+    transition: 0.5s;
+    border-radius: 10px;
+    display: none;
+    position: fixed;
+    bottom: 10px; /* или любое другое значение, которое вам нравится */
+    left: 50%;
+    transform: translateX(-50%);
+    color: #fff;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+.icon {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    cursor: pointer;
+}
+
+.button-container{display:flex; gap: 10px}
+.button-container button{flex-basis: calc(50% - 5px)}
