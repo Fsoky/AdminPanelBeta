@@ -31,21 +31,33 @@ async def check_user(data: dict):
     return {"success": False}
 
 
-@app.get("/change-balance")
-async def change_balance(request: Request):
-    return templates.TemplateResponse("change_balance.html", {"request": request})
+@app.post("/handle-action")
+async def action_handler(data: dict):
+    action = data.get("action")
+    user_id = int(data.get("id"))
+    query = {}
 
-
-@app.post("/new-balance")
-async def new_balance(data: dict):
-    uid = int(data.get("id"))
-    balance = int(data.get("balance"))
+    if action == "new-balance":
+        query["$inc"] = {"balance": int(data.get("amount"))}
+    elif action == "new-status":
+        query["$set"] = {"status": data.get("status")}
+    else:
+        return {"success": False}
 
     try:
-        await db.users.update_one({"_id": uid}, {"$inc": {"balance": balance}})
-        await bot.send_message(
-            uid, f"Вам изменили баланс: <code>{balance}</code> $", parse_mode="html"
-        )
+        await db.users.update_one({"_id": user_id}, query)
         return {"success": True}
-    except:
+    except Exception as e:
+        print(e) # lmao make logger pls.
         return {"success": False}
+
+
+
+@app.get("/change-balance")
+async def change_balance(request: Request):
+    return templates.TemplateResponse("new_balance.html", {"request": request})
+
+
+@app.get("/change-status")
+async def change_status(request: Request):
+    return templates.TemplateResponse("new_status.html", {"request": request})

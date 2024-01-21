@@ -14,7 +14,7 @@ from config_reader import config
 
 
 router = Router()
-router.message.filter(F.from_user.id == 1490170564)
+router.message.filter(F.from_user.id == config.ADMIN_ID)
 
 
 def inline_builder():

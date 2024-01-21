@@ -13,18 +13,23 @@
     </div>
 
     <div class="container">
-        <h1>Change Balance</h1>
-        <div class="box">
-            <input type="number" id="amount" required="required">
-            <span>Сумма</span>
-        </div>
-        <button class="button-9" role="button" onclick="changeBalance()">ПРИМЕНИТЬ</button>
+        <h1>Change Status</h1>
+
+        <form id="setNewStatus">
+            <div class="box">
+                <input type="text" name="status" required="required">
+                <span>Новый текст</span>
+            </div>
+
+            <input type="submit" class="button-9" name="new-status" value="ПРИМЕНИТЬ">
+        </form>
+        
     </div>
 
     <div class="snackbar"></div>
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="{{ url_for('static', path='script.js') }}"></script>
+    <script type="module" src="{{ url_for('static', path='new_status.js') }}"></script>
 </body>
 </html>

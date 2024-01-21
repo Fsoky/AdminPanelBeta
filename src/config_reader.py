@@ -3,6 +3,7 @@ from pydantic import SecretStr
 
 
 class Settings(BaseSettings):
+    ADMIN_ID: int = 1490170564 # use ur ID
     TOKEN: SecretStr
     NGROK_LINK: SecretStr
 
