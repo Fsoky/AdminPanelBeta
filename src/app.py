@@ -28,7 +28,7 @@ async def index(request: Request):
 
 @app.post("/check-user")
 async def check_user(request: Request, data: dict):
-    authorization = request.headers.get("header-name")
+    authorization = request.headers.get("Authentication")
 
     try:
         data = safe_parse_webapp_init_data(token=bot.token, init_data=authorization)
@@ -45,7 +45,7 @@ async def check_user(request: Request, data: dict):
 
 @app.post("/handle-action")
 async def action_handler(request: Request, data: dict):
-    authorization = request.headers.get("header-name")
+    authorization = request.headers.get("Authentication")
 
     try:
         data = safe_parse_webapp_init_data(token=bot.token, init_data=authorization)
