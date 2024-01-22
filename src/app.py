@@ -1,6 +1,9 @@
 from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from fastapi.templating import Jinja2Templates
 from fastapi.staticfiles import StaticFiles
+
+from aiogram.utils.web_app import safe_parse_webapp_init_data
 
 from motor.motor_asyncio import AsyncIOMotorClient
 from aiogram import Bot
@@ -24,33 +27,49 @@ async def index(request: Request):
 
 
 @app.post("/check-user")
-async def check_user(data: dict):
+async def check_user(request: Request, data: dict):
+    authorization = request.headers.get("Authentication")
+
+    try:
+        data = safe_parse_webapp_init_data(token=bot.token, init_data=authorization)
+    except ValueError:
+        return JSONResponse({"success": False, "error": "Unauthorized"}, status=401)
+
     user = await db.users.count_documents({"_id": int(data.get("id"))})
+
     if user:
         return {"success": True}
+
     return {"success": False}
 
 
 @app.post("/handle-action")
-async def action_handler(data: dict):
+async def action_handler(request: Request, data: dict):
+    authorization = request.headers.get("Authentication")
+
+    try:
+        data = safe_parse_webapp_init_data(token=bot.token, init_data=authorization)
+    except ValueError:
+        return JSONResponse({"success": False, "error": "Unauthorized"}, status=401)
+
     action = data.get("action")
     user_id = int(data.get("id"))
     query = {}
 
-    if action == "new-balance":
-        query["$inc"] = {"balance": int(data.get("amount"))}
-    elif action == "new-status":
-        query["$set"] = {"status": data.get("status")}
-    else:
-        return {"success": False}
+    match action:
+        case "new-balance":
+            query["$inc"] = {"balance": int(data.get("amount"))}
+        case "new-status":
+            query["$set"] = {"status": data.get("status")}
+        case _:
+            return {"success": False}
 
     try:
         await db.users.update_one({"_id": user_id}, query)
         return {"success": True}
     except Exception as e:
-        print(e) # lmao make logger pls.
+        print(e)  # lmao make logger pls.
         return {"success": False}
-
 
 
 @app.get("/change-balance")
